@@ -1,0 +1,17 @@
+FROM mysql:8
+LABEL maintainer="ivan"
+MAINTAINER ivan
+
+#ENV MYSQL_ROOT_PASSWORD=123
+#ENV MYSQL_ENTER=""$MYSQL_ROOT_PASSWORD" mysql -h "localhost" -u "root"  source /app/sample/med_prod_db_DLL.sql "$@""
+ENV MYSQL_ALLOW_EMPTY_PASSWORD=true
+
+COPY ./med_prod_db_DDL.sql /app/sample/
+COPY ./sql_settings.cnf /etc/my.cnf.d/
+
+#WORKDIR /app/sample
+
+#RUN mysql < /app/sample/med_prod_db_DLL.sql 
+CMD ["mysql", "</app/sample/med_prod_db_DLL.sql"]
+
+EXPOSE 3333
